@@ -26,3 +26,7 @@ If in your path:
 Otherwise:
 
 `$ ruby desirmore.rb -i 'music/**/*.flac' -b 'music/' -p`
+
+## About
+boris is made by Joseph Caillet and is released under GPL-3.0.<br>
+View source code, report bug, contribute here: https://github.com/JosephCaillet/desirmore.

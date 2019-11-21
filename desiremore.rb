@@ -107,14 +107,14 @@ input_files.each_with_index do |path, index|
 	else
 		puts_with_progress.("\t♫ " + File.basename(path) + "\t➜\t" + get_output_path(path, options, false), index)
 		FileUtils.mkdir_p File.dirname output_path
-		# ffmpeg uses stderr instead of stdout for logging, hence when it is redirected to sdtout to capture it
-		cli = "ffmpeg -hide_banner -i #{Shellwords.escape path} -c:a alac -c:v copy #{Shellwords.escape output_path} 2>&1"
+
+		conversion_options = "-c:a alac -c:v copy"
+		logging_options = "-loglevel warning -stats -hide_banner"
+		cli = "ffmpeg -i #{Shellwords.escape path} #{conversion_options} #{Shellwords.escape output_path} #{logging_options}"
 		success = system(cli)
 		if not success
 			errors.push(path)
 		end
-		# ffmpeg uses color, but does not reset back to normal color, we have to print a newline to get rid of it ¯\_(ツ)_/¯
-		puts
 	end
 end
 
@@ -129,5 +129,4 @@ end
 # create main function
 # add ref to license
 # add ref to github page
-# show error atthe end if user want it
-# find a way to handle when ffmpeg await user input in stdin, not
+# show error at the end if user want it
